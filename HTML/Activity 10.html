@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity 10</title>
+    <style>
+        #outer {
+            background-color: rgb(71, 69, 69);
+            padding-top: 7px;
+            padding-bottom: 7px;
+        }
+        #header {
+            background-color: rgb(230, 229, 229);
+            width: 90%;
+            border-radius: 10px;
+            margin-left: 4%;
+            color: blue;
+            text-align: center;
+        }
+
+        b {
+            font-size: 35px;
+        }
+
+        #link {
+            background-color: grey;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        #body {
+            padding-left: 4%;
+            padding-right: 6%;
+            margin: 0;
+            margin-bottom: 3px;
+            background-color: white;
+            color: rgb(219, 116, 47);
+        }
+
+        #d2 {
+            border: 1px solid rgb(151, 150, 150);
+            border-radius: 5px;
+            padding-left: 3px;
+        }
+
+        #d3 {
+            border: 1px solid rgb(151, 150, 150);
+            border-radius: 5px;
+            padding-left: 3px;
+        }
+
+    
+        table {
+            border-collapse: collapse;
+            border: 2px solid rgb(151, 147, 147);
+            width: 100%;
+        }
+        td {
+            border: 2px solid rgb(151, 147, 147);
+        }
+        th {
+            border: 2px solid rgb(151, 147, 147);
+            background-color: rgb(223, 213, 213);
+            text-align: start;
+        }
+
+        input {
+            width: 100%;
+            border: 1px solid rgb(151, 150, 150)
+        }
+         #footer {
+            background-color: rgb(230, 229, 229);
+            width: 90%;
+            border-radius: 10px;
+            margin-left: 4%;
+            padding: 5px;
+            text-align: center;
+         }
+    </style>
+</head>
+<body>
+    <div id="outer"><div id="header">
+        <b>Riwick Smith</b> <br>
+        Web Developer & Designer
+    </div></div>
+    <div id="link">
+        <nav>
+            <a href="">About</a>&nbsp;&nbsp;
+            <a href="">Projects</a>&nbsp;&nbsp;
+            <a href="">Contact</a>
+        </nav>
+    </div>
+    <div id="body">
+        <div id="d1">
+            <h2>About Me</h2>
+            <p>Hello! I'm Riwick Smith, a passionate web developer with a love for creating beautiful and functional websites. I have experience in HTML, CSS, JavaScript, and more.</p>
+        </div>
+        <h2>My Projects</h2>
+        <div id="d2">
+            <h3>Project 1</h3>
+            <p>A description of Project 1. Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+        </div>
+        <br>
+        <div id="d3">
+            <h3>Project 2</h3>
+            <p>A description of Project 2. Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+        </div>
+        <div id="d4">
+            <h2 style="text-align: center;">Project Statistics</h2>
+            <table>
+                <tr>
+                    <th>Project</th>
+                    <th>Technologies</th>
+                    <th>Completion Date</th>
+                </tr>
+                <tr>
+                    <td>Project 1</td>
+                    <td>HTML, CSS, JavaScript</td>
+                    <td>June 2024</td>
+                </tr>
+                <tr>
+                    <td>Project 2</td>
+                    <td>React, Node.js</td>
+                    <td>August 2024</td>
+                </tr>
+            </table>
+        </div>
+        <div id="d5">
+            <h2>Contact Me</h2>
+            <form>
+                Name: <br>
+                <input type="name"><br><br>
+                Email: <br>
+                <input type="email"><br><br>
+                <fieldset>
+                    <legend><h4>Preferred Contact Method</h4></legend>
+                    <input type="radio" style="width: min-content;">Email
+                    <input type="radio" style="width: fit-content;">Phone
+                </fieldset>
+                <input type="checkbox" style="width: fit-content;">Subscribe to newsletter<br>
+                <input type="submit" value="Send" style="background-color: black; color: white;">
+            </form>
+        </div>
+    </div>
+    <div id="outer"><div id="footer">
+        <p>&copy; 2024 Riwick Smith. All rights reserved</p>
+    </div></div>
+</body>
+</html>
