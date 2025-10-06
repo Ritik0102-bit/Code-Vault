@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity 9</title>
+    <style>
+        div {
+            width: 300px;
+            height: auto;
+            padding: 10px;
+            margin: 10%;
+            border: 3px solid rgb(156, 155, 155);
+        }
+
+        select {
+            width: 270px;
+            padding: 2px;
+        }
+        input {
+            width: 280px;
+        }
+        #submit {
+            color: white;
+            background-color: green;
+            border: 0px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Registration Form</h1>
+        <form>
+            Name<br>
+            <input type="name"><br><br>
+            Email<br>
+            <input type="email"><br><br>
+            Password<br>
+            <input type="password"><br><br>
+        
+            <label for="Gender">Gender:</label><br>
+            <select id="Gender">
+                <option>Select</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+            </select><br><br>
+        
+            Bio<br>
+            <textarea rows="5" cols="34"></textarea>
+            <br><br>
+            <input id="submit" type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
