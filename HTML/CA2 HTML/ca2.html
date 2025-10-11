@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="Stylesheet" href="Style.css">
+</head>
+<body>
+    <div id="grid-container">
+    <div id="n1">
+        <nav>
+            <a href="">Home</a>
+            <a href="">About</a>
+            <a href="">Services</a>
+            <a href="">Contact</a>
+        </nav>
+    </div>
+    <div id="n2">
+        <h1>hover effect (background color) on table data cells.</h1>
+        <table>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>ID</th>
+            </tr>
+            <tr>
+                <td colspan="2">XYZXYZ</td>
+                <td>12345</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Chaudhary</td>
+                <td rowspan="2">1234</td>
+            </tr>
+            <tr>
+                <td>ABCABC</td>
+                <td>Chauhan</td>
+            </tr>
+        </table>
+    </div>
+    <div id="n3">
+        <b>Validation check to the mobile number input field and onclick generate a pop-up</b>
+        <form id="form1" onsubmit="return validateForm()">
+            UserID:<br>
+            <input type="text" id="userID" placeholder="UserID"><br><br>
+            Mobile Number:<br>
+            <input type="number" id="mobileNumber" placeholder="Mobile Number"><br><br>
+            Password:<br>
+            <input type="password" id="password" placeholder="Password"><br><br>
+            <input type="submit" value="Submit Now">
+        </form>
+    </div>
+    
+    <script>
+        function validateForm() {
+            // Get the mobile number input value
+            var mobileNumber = document.getElementById("mobileNumber").value;
+            
+            // Check if mobile number is empty or not 10 digits long
+            if (mobileNumber == "" || mobileNumber.length !== 10) {
+                alert("Please enter a valid 10-digit mobile number.");
+                return false; // Prevent form submission
+            }
+            
+            // Optional: You can also add additional validations (e.g., check if the input contains only numbers)
+            var mobilePattern = /^[0-9]{10}$/;
+            if (!mobilePattern.test(mobileNumber)) {
+                alert("Mobile number should contain exactly 10 digits.");
+                return false; // Prevent form submission
+            }
+    
+            // If validation passes, show a confirmation pop-up
+            alert("Form submitted successfully!");
+    
+            // If you want to submit the form programmatically, you can uncomment the line below:
+            // document.getElementById("form1").submit();
+    
+            return true; // Allow form submission
+        }
+    </script>
+    
+    <div id="n4">
+        <figure>
+            <img src="a.jpg" alt="error" height="200px" width="200px">
+            <figcaption>Art of World</figcaption>
+        </figure>
+    </div>
+    <div id="n5">
+        <center>&copy copyright your webpage</center>
+    </div>
+</div>
+</body>
+</html>
