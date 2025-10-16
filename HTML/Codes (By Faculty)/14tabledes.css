@@ -1,0 +1,40 @@
+table {
+  /*border-collapse: collapse;*/
+  border-collapse: separate;
+  width: 100%;
+  border: 10px solid;
+  border-spacing: 5px; /*20px*/
+ /*border-color: greenyellow;*/
+  /*border-block-color: pink lightblue;*/
+  background-color:gainsboro;
+  border-top-color: aqua;
+  border-right-color: red;
+  border-bottom-color:yellow;
+  border-left-color:dodgerblue;
+}
+
+th, td {
+  padding: 20px;
+  text-align: center;
+  /*border-bottom: 1px solid #ddd;*/
+  border: 3px solid red;
+                 /*border-radius: 15%;*/
+                  border-bottom-left-radius: 40%;
+  
+  /*background-color: aqua;*/
+  /*padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 40px;*/
+  
+}
+
+
+th:hover {
+    background-color: coral;
+    }
+td:hover{
+  background-color: aqua;
+}
+
+
