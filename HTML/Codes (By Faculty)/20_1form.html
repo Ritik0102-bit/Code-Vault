@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #rh1{
+            text-align: center;}
+        
+        body{
+    background-image: url("img/clg.JPG");
+    font-family: Arial, Helvetica, sans-serif;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    height:100vh;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15%;
+  }
+
+  fieldset{
+  
+    height:100vh;
+    background-color: rgba(255, 255, 255, 0.76);
+    border: 2px solid red;
+    border-radius: 15px;
+    padding: 45px;
+    margin-top: 1%;
+    width:35%;
+    justify-content: center;
+
+  }
+
+  /* div{
+     margin-bottom: 25px;
+     margin-left: 15px;
+  } */
+
+  input{
+         /*width:30%;*/
+         padding: 10px;
+         border-radius: 5px;
+         border:2px solid blueviolet;
+         /*background-color: aquamarine;*/
+  }
+
+  input:focus, textarea:focus, select:focus{
+      background-color: burlywood;
+  }
+
+  input[type="submit"]:hover,input[type="reset"]:hover
+   {
+       background-color: aquamarine;
+       transform: scale(1.5);
+   } 
+
+        </style>
+
+</head>
+<body>
+    <!-- <form name="registerationForm">
+        Name: <input type="text">
+        Email: <input type="email">
+    </form> -->
+    <form>
+        <h1 id="rh1">RegistrationForm</h1>
+        <fieldset>
+           <legend><h1>Form</h1></legend>
+          
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Name" name="myname"><br><br>
+
+            Email: <input type="email" name="myemail" placeholder="Email" required><br><br>
+
+            password: <input type="password" name="mypassword" placeholder="password" required><br><br>
+
+            Number: <input type="number" name="mynumber" placeholder="number" required><br><br>
+
+            Gender: Male<input type="radio" name="mygender"> 
+            Female <input type="radio" name="mygender"> 
+            Other<input type="radio" name="mygender"><br><br>
+           
+            Hobbies: Reading<input type="checkbox"> Singing <input type="checkbox"><br><br>
+            
+            <label for="country">Country:</label>
+            <select id="country">
+                <option>select</option>
+                <option>India</option>
+                <option>Thailand</option>
+                <option>USA</option>
+            </select><br><br>
+
+            <input type="file" name="myfile"><br><br>
+
+            About Yourself:<br>
+            <textarea name="mytext" rows="5" cols="50"></textarea><br><br>
+
+            Date: <input type="date" name="mydate"><br><br>
+
+            <input type="submit" value="Submit now"> &nbsp;&nbsp;
+            <input type="reset" value="Reset form">
+        </fieldset>
+    </form>
+</body>
+</html>
