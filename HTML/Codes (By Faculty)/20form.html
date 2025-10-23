@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="get.css" rel="stylesheet">
+</head>
+<body>
+  
+   <!-- <form name="registerationForm">
+        Name: <input type="text">
+        Email: <input type="email">
+    </form> -->
+ <div id="div1">
+    <form action="view.html" method="get" name="registerationForm" onsubmit="return validateForm">
+        <div> 
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Name" name="myname" required>
+        </div>
+        <div>
+        Email: <input type="email" name="myemail" placeholder="Email" required>
+        </div>
+        <div> 
+            password: <input type="password" name="mypassword" required>
+          </div>
+        <div>
+            Number: <input type="number" name="mynumber" required>
+        </div>
+        <div>
+            Gender: Male<input type="radio" name="mygender"> Female <input type="radio" name="mygender"> Other<input type="radio" name="mygender" required>
+        </div>
+         <div>
+            Hobbies: Reading<input type="checkbox"> Singing <input type="checkbox" required>
+             <!--use of checked -->
+        </div>
+        <div>
+            <label for="country">Country:</label>
+            <select id="country">
+                <option>select</option>
+                <option>India</option>
+                <option>Thailand</option>
+                <option>USA</option>
+            </select>
+        </div>
+        <div>
+            <input type="file" name="myfile">
+            <!--button-- onlick="myfile()">select file</button-->
+        </div>
+        <div>
+            About Yourself:<br> <textarea name="mytext" rows="5" cols="50"></textarea>
+            
+        </div>
+        <div>
+            Date: <input type="date" name="mydate">
+            </div>
+        <div>
+            <input type="submit" value="Submit now"> &nbsp;&nbsp;
+            <input type="reset" value="Reset form">
+            </div>
+    </form> 
+ </div>
+</body>
+</html>
