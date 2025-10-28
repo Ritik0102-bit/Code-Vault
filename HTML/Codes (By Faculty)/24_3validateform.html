@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+           body{
+    background-image: url("img/clg.JPG");
+    font-family: Arial, Helvetica, sans-serif;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    height:100vh;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15%;
+    font-size: 40px;
+  }
+  input{
+         /*width:30%;*/
+         padding: 10px;
+         border-radius: 5px;
+         border:2px solid blueviolet;
+         /*background-color: aquamarine;*/
+  }
+
+  input:focus{
+      background-color: burlywood;
+  }
+
+  input[type="submit"]:hover
+   {
+       background-color: aquamarine;
+       transform: scale(1.5);
+   } 
+
+    </style>
+</head>
+<body>
+    <script>
+        function data()
+        {
+             var a=document.getElementById("n1").value;
+             var b=document.getElementById("n2").value; 
+             var c=document.getElementById("n3").value; 
+             var d=document.getElementById("n4").value; 
+         //   if field is empty so show the error
+         if(a==""|| b==""|| c==""|| d=="")
+         {
+            alert("All fields are mandatory");
+            return false;
+         }
+        //  contact length should be 10digit
+         else if(b.length<10||b.length>10)
+         {
+            alert("Number should be of 10 digit! Please enter valid number");
+            return false;
+         }
+         // input is not a number NaN
+         else if(isNaN(b))
+         {
+            alert("Only Numbers allowed! Please enter valid number");
+            return false;
+         }
+         else if(c!=d)
+         {
+            alert("please enter same password");
+            return false;
+         }
+
+
+         else{
+            true;
+         }
+        }
+    </script>
+    <form onsubmit="return data()" action="view.html" method="get">
+        UserID:<br>
+        <input type="text" id="n1"><br>
+        Mobile Number:<br>
+        <input type="text" id="n2"><br>
+        Password:<br>
+        <input type="password" id="n3"><br>
+        Confirm Password:<br>
+        <input type="password" id="n4"><br>
+        <input type="submit" value="Submit Now">
+    </form>
+
+</body>
+</html>
