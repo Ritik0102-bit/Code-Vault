@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+            body{
+                background-image: url("img/clg.JPG");
+    font-family: Arial, Helvetica, sans-serif;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    height:100vh;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15%;
+    
+            }
+
+            #form{
+                width:250px;
+                margin:100px auto 0 auto;
+                border: 2px solid rebeccapurple;
+
+                border-radius: 15px;
+                padding:25px;
+                background-color: rgba(0,0,0,.5);
+                color:#fff;
+            }
+            p,input{
+                font-size:20px;
+            }
+            input{
+                width:255px;
+                border: 1px soldi #000;
+                border-radius: 10px;
+            }
+
+    </style>
+</head>
+<body>
+    <div id="form">
+        <h1 id="h1">Keyboard Event</h1>
+        <p>onkeydown</p>
+         <!-- first script run then after printing of entery value -->
+        <input type="text" onkeydown="alert(this.value);">
+        <!-- <input type="text" onkeydown="document.getElementById('form').style.background=this.value">  -->
+      
+        
+        
+        <p>onkeyup</p> 
+        
+        <input type="text" onkeyup="alert(this.value);">
+        <!-- <input type="text" onkeyup="document.getElementById('form').style.background=this.value"> -->
+        <p>onkeypress</p>
+        <input type="text" onkeypress="alert(this.value);">
+        
+        <!-- <input type="text" onkeypress="document.getElementById('form').style.background=this.value"> -->
+    </div>   
+</body>
+</html>

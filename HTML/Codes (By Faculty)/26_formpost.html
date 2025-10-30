@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form-action attribute | post method</title>
+</head>
+<body>
+            <!--On using post method (email password and value of button) is NOT Shown inside url
+                           1. It is secure method for requesting data-->
+    <form action="view.html" method="get">
+        <!--Using table layout-->
+        <table>
+            <tr>
+                <td>Email</td>
+                    <!--create email field, use <input type="email"> and 
+                          provide name that acts as a variable for storing the request value 
+                                             e.g. for storing the email and password etc. -->
+                <td><input type="email" name="myemail"></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" name="mypassword"></td>
+            </tr>
+            <tr>
+                <!--value is text shown in button-->
+                <td>
+                    <input type="reset" name="myreset" value="RESET"> &nbsp;&nbsp;&nbsp;
+                    <input type="submit" name="mysubmit" value="LOGIN">
+                <td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
