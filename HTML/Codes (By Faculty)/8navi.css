@@ -1,0 +1,28 @@
+body{
+    margin: 0px;
+    padding: 0px;
+}
+div{
+    background-color: blueviolet;
+    margin: 0px;
+    padding: 0px;
+}
+
+h1{
+    background-color: aqua;
+    color: red;
+    text-align: center;
+    
+}
+
+ul li{
+    display: inline-block;
+    padding: 10px;
+}
+
+ul li:hover{
+    background-color: green;
+    color: azure;
+    padding-left: 25px;
+    transition:3s;
+}
