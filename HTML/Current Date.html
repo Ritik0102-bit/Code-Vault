@@ -1,0 +1,47 @@
+To display the current date in HTML, you can use JavaScript. Here’s a simple example that fetches the current date and displays it on a webpage:
+
+html
+Copy code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Date Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Current Date</h1>
+<p id="current-date"></p>
+
+<script>
+    // Get the current date
+    const today = new Date();
+    
+    // Format the date
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = today.toLocaleDateString('en-US', options);
+
+    // Display the date in the paragraph
+    document.getElementById('current-date').innerText = formattedDate;
+</script>
+
+</body>
+</html>
+Explanation
+HTML Structure: The HTML includes a heading and a paragraph where the date will be displayed.
+JavaScript:
+new Date() creates a new date object representing the current date and time.
+toLocaleDateString() formats the date according to the specified locale and options.
+The formatted date is inserted into the paragraph with the ID current-date.
+Result
+When you open this HTML file in a web browser, it will display the current date in a nicely formatted way, such as "October 15, 2024". You can customize the date format by adjusting the options in toLocaleDateString().
+
+
+

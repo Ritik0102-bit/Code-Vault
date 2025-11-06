@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    input{
+      padding: 10px;
+      font-size: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    .message{
+      font-size: 18px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <form id="myform" action="home.html">
+    <label for="name">Name:</label>
+    <input type="text" id="name" onkeyup="validateName()" required>
+    <div class="message" id="nameMessage"></div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" onkeyup="validateEmail()" required>
+    <div class="message" id="emailMessage"></div>
+    <label for="password">Password:</label>
+    <input type="password" id="password" onkeyup="validatePassword()" required>
+    <div class="message" id="passwordMessage"></div>
+    <input type="submit" value="Submit form">
+  </form>
+
+  <script src="./form.js"></script>
+</body>
+</html>
