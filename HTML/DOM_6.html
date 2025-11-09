@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>The createElement() Method</h2>
+    <p>Create a p element and append it to "mydiv":</p>
+    <div id="mydiv" style="padding: 16px;background-color: aquamarine;">
+        <h3>A Div element</h3>
+    </div>
+    <script>
+        //Create element
+        const para=document.createElement("p");
+        para.innerHTML="This is a paragraph";
+        //Append to another element
+        document.getElementById("mydiv").appendChild(para);
+    </script>
+</body>
+</html>
