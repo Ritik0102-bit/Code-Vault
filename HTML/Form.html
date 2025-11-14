@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Design</title>
+    <style>
+        #h1 {
+            text-align: center;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="h1">Registration Form</h1>
+    <form>
+        <fieldset>
+            <legend> <h1>form</h1></legend>
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="enter your name" name="myname" required><br><br>
+
+            Email: <input type="email" name="myemail" placeholder="enter your email" required><br><br>
+
+            Password: <input type="password" name="mypassword" placeholder="enter your password" required><br><br>
+            
+            Number: <input type="number" name="mynumber" placeholder="number" required><br><br>
+
+            Gender: Male<input type="radio" name="mygender">
+            Female <input type="radio" name="mygender">
+            Other <input type="radio" name="mygender"><br><br>
+
+            Hobbies: Reading<input type="checkbox">
+            Singing <input type="checkbox"><br><br>
+
+            <label for="country">Country:</label>
+            <select id="country">
+                <option>select</option>
+                <option>Thailand</option>
+                <option>Russia</option>
+                <option>France</option>
+                <option>USA</option>
+            </select><br><br>
+
+            <input type="file" name="myfile"><br><br>
+
+            About Yourself: <br>
+            <textarea name="mytext" rows="5" cols="60"></textarea><br><br>
+
+            Date: <input type="date" name="mydate"><br><br>
+
+            <input type="submit" value="Submit now">&nbsp;&nbsp;
+            <input type="reset" value="Reset form">
+        </fieldset>
+    </form>
+    
+</body>
+</html>
