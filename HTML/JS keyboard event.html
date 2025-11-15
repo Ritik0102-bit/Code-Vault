@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="form">
+        <h1 id="h1">Keyboard Event</h1>
+        <p>on keydown</p>
+        <!--first script run then after printing of enter value-->
+        <input type="text" onkeydown="alert(this.value);">
+        <!---->
+        <p>on keyup</p>
+        <input type="text" onkeyup="alert(this.value);">
+        <p>on keypress</p>
+        <input type="text" onkeypress="alert(this.value);">
+    </div>
+</body>
+</html>
