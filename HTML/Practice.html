@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Practice.css">
+
+    <style>
+        body {
+            background-color: white;
+            margin-top: 80px;
+        }
+        
+        header {
+            background-color:black ;
+            color:white;
+            padding:10px;
+            height:100px;
+        }
+
+        header a {
+            color: white;
+        text-decoration: none;
+        }
+
+        main {
+            height: 250px;
+            width:auto;
+        }
+        div {
+            background-color: beige;
+            margin-top: 15px;
+            margin-left: 20px;
+            height:110px;
+            width:auto;
+            padding:15px;
+           
+        }
+
+        div a {color: black;}
+
+        footer {background-color: black;
+            color: white;
+            padding: 15px;
+            margin-bottom: 50px;
+        }
+
+        table{
+            color: rgb(191, 206, 235);
+            border: 2px solid black;
+            border-collapse: separate;
+            height: 300px;
+            width: 300px;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            border-top-right-radius: 12px;
+            padding: 5px;
+            border-spacing: 5px;
+        }
+        td{
+            border: 1px solid black;
+            background-color: darkslategrey;
+            text-align: center;
+            height: 20px;
+            width: 20px;
+            border-top-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            font-size: larger;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        #t1 {
+            background-color: antiquewhite;
+            color: chocolate;
+        }
+        #c1 {
+            background-color: burlywood;
+            color: crimson;
+        }
+
+
+        i {
+            width: 45px;
+            height: 40px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            background-color: #febd69;
+            color: black;
+        }
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <center>
+        <h1>Welcome to My Webpage</h1>
+        <a href="example.com">Home</a>&nbsp;&nbsp;&nbsp;
+                <a href="example.com">About</a>&nbsp;&nbsp;&nbsp;
+                <a href="example.com">Contact</a>
+            </center>
+    </header>
+    <main>
+        <div>
+            <h2>About This Page</h2>
+            <p>This is a simple webpage to demonstrate styling and linking.</p>
+            <a href="example.com">Visit Example.com</a>
+        </div>
+    </main>
+    <footer>
+        <center>
+            &copy; 2024 Ritik 12413150
+        </center>
+    </footer>
+    <hr>
+    <form action="/action_page.php">
+        <label for="cars">Choose a car:</label>
+        <select name="cars" id="cars">
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="opel">Opel</option>
+          <option value="audi">Audi</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Submit">
+      </form>
+<hr>
+<h1>Jana Doe</h1>
+<h2><i>Software Developer</i></h2>
+<h3><u>Objective</u></h3>
+<p>Lorem ipsum dolor sit amet <b>Lorem, ipsum.</b>consectetur adipisicing <b>I</b> elit. Corporis <u>tempora ut odio nobis.</u></p>
+<h3>Skills</h3>
+<ul type="disc">
+    <li><b>HTML5 & CSS3</b></li>
+    <li><i>JavaScript</i></li>
+    <li><u>ReactJS</u></li>
+</ul>
+<h4>Contact Information</h4>
+<img src="a.jpg" alt="missing" height="40px" width="40px">
+<img src="b.jpeg" alt="missing" height="40px" width="40px">
+<p>For more details please contact via <a href="mailto:example@.com">email</a>.</p>
+<P><cite>&copy; Jana Doe. All rights reserved.</cite></P>
+
+<hr>
+<table>
+    <tr>
+        <td rowspan="2" id="t1">Item 1</td>
+        <td colspan="2" id="c1">Item 2</td>
+    </tr>
+    <tr>
+        <td>Item 5</td>
+        <td>Item 6</td>
+    </tr>
+    <tr>
+        <td>Item 7</td>
+        <td>Item 8</td>
+        <td>Item 9</td>
+    </tr>
+</table>
+
+<hr>
+<i class="fa-duotone fa-solid fa-magnifying-glass"
+                style="color:black;"
+                ></i>
+                <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #000000;"></i>
+
+<hr>
+<hr>
+
+<!--==================== LOGIN ====================-->
+<div class="login" id="login">
+    <form action="" class="login__form">
+       <h2 class="login__title">Log In</h2>
+       
+       <div class="login__group">
+          <div>
+             <label for="email" class="login__label">Email</label>
+             <input type="email" placeholder="Write your email" id="email" class="login__input">
+          </div>
+          
+          <div>
+             <label for="password" class="login__label">Password</label>
+             <input type="password" placeholder="Enter your password" id="password" class="login__input">
+          </div>
+       </div>
+
+       <div>
+          <p class="login__signup">
+             You do not have an account? <a href="#">Sign up</a>
+          </p>
+
+          <a href="#" class="login__forgot">
+             You forgot your password
+          </a>
+
+          <button type="submit" class="login__button">Log In</button>
+       </div>
+    </form>
+
+    <i class="ri-close-line login__close" id="login-close"></i>
+ </div>
+</body>
+</html>

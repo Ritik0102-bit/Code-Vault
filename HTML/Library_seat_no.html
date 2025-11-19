@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Printable Library Desk Numbers (A4 Optimized)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        /* --- A4 Print Specific Styles --- */
+        @media print {
+            /* Define the page size and reduced margins to maximize printable area */
+            @page {
+                size: A4 portrait;
+                margin: 1cm; 
+            }
+
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                background-color: #fff; /* Ensure background is white for printing */
+            }
+
+            .no-print {
+                display: none; /* Hide buttons and other non-printable elements */
+            }
+
+            .printable-area {
+                display: flex; /* Use flex to make the grid fill the height */
+                flex-direction: column;
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none; /* Remove shadows for print */
+                border: none;
+            }
+            
+            #number-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: repeat(5, 1fr); /* Changed to 5 rows for 20 items */
+                flex-grow: 1; /* Make the grid take all available space */
+                gap: 0.8cm; /* Adjust grid gap for paper */
+            }
+
+            .grid-cell {
+                 border: 3px solid #ef4444 !important; /* Red-500 */
+                 box-shadow: none !important;
+                 padding: 4px !important; /* Ensure gap is correct on print */
+            }
+
+            .inner-cell {
+                border: 2px solid #000 !important;
+            }
+            
+            .number-text {
+                /* Override responsive screen font sizes with a fixed size for paper */
+                font-size: 55pt !important; /* Increased font size */
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-4xl bg-white rounded-lg shadow-lg p-8 printable-area">
+        <!-- Grid container -->
+        <div id="number-grid" class="grid grid-cols-4 gap-6">
+            <!-- Script generates grid cells here -->
+        </div>
+    </div>
+
+    <div class="no-print mt-8 flex space-x-4">
+        <button onclick="window.print()" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300 shadow-lg transform hover:scale-105">
+            Print Sheet
+        </button>
+    </div>
+
+    <script>
+        const gridContainer = document.getElementById('number-grid');
+
+        /**
+         * Creates the initial grid of numbers from 1 to 20.
+         */
+        function createInitialGrid() {
+            gridContainer.innerHTML = ''; // Clear previous grid
+            for (let i = 81; i <= 100; i++) { // Changed loop to generate 20 numbers
+                const cell = document.createElement('div');
+                // The outer cell has the red border and padding (p-1 = 4px).
+                cell.className = 'grid-cell border-4 border-red-500 rounded-lg p-1 shadow-md bg-white flex';
+                
+                const innerCell = document.createElement('div');
+                // The inner cell has the black border and centers the number.
+                innerCell.className = 'inner-cell w-full h-full border-2 border-black rounded-md flex items-center justify-center';
+
+                const number = document.createElement('span');
+                // Added 'number-text' class to specifically target font size for printing
+                number.className = 'number-text text-6xl md:text-7xl font-bold text-gray-800'; // Increased responsive font size
+                number.textContent = i;
+                
+                innerCell.appendChild(number); // Add number to the inner cell
+                cell.appendChild(innerCell);   // Add inner cell to the outer cell
+                gridContainer.appendChild(cell);
+            }
+        }
+
+        // --- Initial Setup ---
+        window.onload = () => {
+            createInitialGrid();
+        };
+    </script>
+</body>
+</html>
