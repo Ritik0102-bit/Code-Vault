@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function big_image(x)
+        {
+            x.style.width="400px";
+            x.style.height="600px";
+        }
+        function small_image(x)
+        {
+            x.style.width="50px";
+            x.style.height="80px";
+        }
+    </script>
+    <img src="a.jpg" alt="error" onmouseover="big_image(this)" onmouseout="small_image(this)">
+</body>
+</html>
