@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* unvisited link */
+        #a1:link {
+            color: red;
+        }
+        /* visited link */
+        #a1:visited {
+            color: pink;
+        }
+        /* mouse over link */
+        #a1:hover {
+            color: blue;
+        }
+        /* selected link */
+        #a1:active {
+            color: green;
+        }
+        div {
+            background-color: black;
+            border-top-left-radius: 5px;
+        }
+        div #a3 {
+            background-color: greenyellow;
+        }
+        div a {
+            text-decoration: none;
+            color: white;
+        }
+        #a4:link {
+            color:red;
+        }
+        
+        #a4:visited {
+            color: magenta;
+        }
+        #a4:hover {
+            color: green;
+        }
+        #a4:active {
+            color: blue;
+        }
+      
+    </style>
+</head>
+<body>
+    <p><a href="default.asp" target="_blank" id="a1">This is a Link</a></p>
+    <hr>
+    <p><a href="https://ums.lpu.in/lpuums/StudentDashboard.aspx" id="a1">This is a Link</a></p>
+    <hr>
+
+    <p>
+        <div>
+            <a href="https://ums.lpu.in/lpuums/StudentDashboard.aspx" id="a3">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.google.com/">About</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.google.com/">Services</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.google.com/">Contact</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </p>
+    <a href="https://lpulive.lpu.in/" id="a4" target="_top">Lpu live</a>
+    <main>
+        <marquee scrollamount="10" direction="left">
+            <h1>Welcome TO Home</h1>
+        </marquee>
+    </main>
+</body>
+</html>
