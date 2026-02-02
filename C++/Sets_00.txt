@@ -1,0 +1,53 @@
+What is a Set?
+
+# STL container used to store unique values
+# values are stored in ordered state (increasing order / decreasing order)
+# no indexing, elements are identified by their own values
+# once value is inserted in a set, it cannot be modified.
+
+# Time Complexity:-
+
+Insertion -> O(logn)
+Deletion -> O(logn)
+Searching -> O(logn)
+
+Declaration of a Set:-
+
+#include <set>
+
+set < data-type > set_name;
+
+set < int > set1 = { 1, 2, 3, 4 };
+
+# By default, values are stored in increasing order.
+
+# Syntax for Decreasing Order:- To store values in decreasing order, use the greater comparator
+
+set < datatype , greater < datatype > > set_name;
+
+
+Traversal of a Set
+
+Iterator: Used for traversing a set.
+
+set_name.begin(): Returns an iterator pointing to the first element of the set.
+set_name.end(): Returns an iterator pointing to the position after the last element of the set.
+
+
+Deleting Elements from a Set
+
+Delete by Value: set_name.erase( value )
+Delete by Position: set_name.erase( position )
+Delete by Range: set_name.erase( start_pos , end_pos )
+Note: [ deletes elements from start pos including it , till end pos, excluding end pos ]
+
+
+Member functions of a Set container
+
+size() , max_size(): max no. of elements set can hold.
+empty(): returns True if empty else false.
+clear(): removes all elements from set.
+find(): returns position of element if present, else returns end() iterator.
+count(): returns no. of occurrences of an element.
+lower_bound(): returns element if present, else returns just greater value.
+upper_bound(): returns the next greater value.
