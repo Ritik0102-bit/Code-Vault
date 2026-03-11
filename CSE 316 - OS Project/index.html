@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBERPUNK THREAT MATRIX</title>
+    <style>
+        /* --- CORE STYLE & COLORS --- */
+        :root {
+            --bg-dark: #050510;
+            --bg-panel: #1a1a2e;
+            --neon-blue: #00e5ff;   /* Primary Cyan */
+            --neon-purple: #ff00e5;
+            --neon-orange: #ff9900;
+            --neon-green: #00ff8c;
+            --text-light: #e0e0e0;
+            --font-main: 'Consolas', monospace;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-main);
+            overflow: hidden; /* Prevent scrolling like a desktop app */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+        }
+
+        /* --- BACKGROUND CANVAS --- */
+        #bg-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+        }
+
+        /* --- LAYOUT GRID --- */
+        .container {
+            flex: 1;
+            padding: 10px;
+            display: grid;
+            grid-template-columns: 28% 44% 28%; /* Matches visual proportions */
+            gap: 10px;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .col {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: 100%;
+        }
+
+        /* --- PANELS --- */
+        .panel {
+            background: var(--bg-panel);
+            border: 0; /* Tkinter doesn't have borders by default on frames, relying on internal padding */
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .panel-header {
+            color: var(--neon-blue);
+            font-weight: bold;
+            font-size: 14px;
+            padding: 10px;
+            border-bottom: 2px solid var(--bg-dark); /* Subtle separator */
+        }
+        
+        .panel-sep {
+            height: 2px;
+            background: var(--neon-blue);
+            width: 96%;
+            margin: 0 auto 5px auto;
+            box-shadow: 0 0 5px var(--neon-blue);
+        }
+
+        .panel-content {
+            flex: 1;
+            padding: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-bottom: 1px solid #111;
+        }
+        
+        .header-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px var(--neon-blue);
+            letter-spacing: 2px;
+        }
+
+        .data-stream {
+            position: absolute;
+            right: 15px; top: 8px;
+            text-align: right;
+            font-size: 10px;
+            color: var(--neon-green);
+            line-height: 1.3;
+        }
+
+        /* --- LOGS --- */
+        #log-container {
+            width: 100%; height: 100%;
+            overflow-y: scroll;
+            font-size: 11px;
+            padding-right: 5px;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: #333355; }
+        
+        .log-line { margin-bottom: 4px; word-wrap: break-word; }
+        .log-time { color: #888; margin-right: 5px; }
+        .c-INFO { color: var(--neon-blue); }
+        .c-WARNING { color: var(--neon-green); }
+        .c-ERROR { color: var(--neon-orange); }
+        .c-CRITICAL { color: var(--neon-purple); font-weight: bold; }
+
+        /* --- GAUGES --- */
+        .gauge-row { margin-bottom: 15px; }
+        .gauge-title { display: flex; justify-content: space-between; font-size: 10px; color: var(--neon-blue); margin-bottom: 3px; }
+        .gauge-track { width: 100%; height: 8px; background: #0a0a1a; }
+        .gauge-fill { height: 100%; width: 0%; transition: width 0.3s ease-out; }
+
+        /* --- BUTTONS --- */
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            height: 100%;
+            align-content: start;
+        }
+
+        .glow-btn {
+            background: var(--bg-panel);
+            color: var(--neon-blue);
+            border: 2px solid var(--neon-blue); /* Solid border like image */
+            padding: 15px 5px;
+            font-family: 'Consolas', monospace;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.1s;
+        }
+
+        .glow-btn:hover:not(:disabled) {
+            background: var(--neon-blue);
+            color: var(--bg-dark);
+        }
+        
+        .glow-btn:disabled {
+            border-color: #333;
+            color: #555;
+            cursor: default;
+        }
+
+        /* Scanline effect on buttons */
+        .glow-btn::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: rgba(255,255,255,0.4);
+            animation: scan 2.5s linear infinite;
+        }
+        @keyframes scan { 0% {top:0%} 100%{top:100%} }
+
+        .abort-btn {
+            width: 100%;
+            margin-top: auto; /* Push to bottom */
+            border-color: var(--neon-orange);
+            color: var(--neon-orange);
+            padding: 12px;
+        }
+        .abort-btn:hover:not(:disabled) { background: var(--neon-orange); color: var(--bg-dark); }
+
+        /* --- CANVAS CONTAINERS --- */
+        .canvas-wrapper { width: 100%; height: 100%; position: relative; }
+        canvas { display: block; }
+        
+        #recom-text {
+            font-size: 11px;
+            line-height: 1.4;
+            color: var(--text-light);
+            height: 100%;
+            overflow-y: auto;
+        }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="header">
+        <div class="header-title">⚡ PROTOCOL: REDLINE ⚡</div>
+        <div class="data-stream" id="data-stream">INIT...</div>
+    </div>
+
+    <div class="container">
+        
+        <div class="col">
+            <div class="panel" style="flex: 2;">
+                <div class="panel-header">◢ LIVE THREAT LOG ◣</div>
+                <div class="panel-sep"></div>
+                <div class="panel-content">
+                    <div id="log-container"></div>
+                </div>
+            </div>
+            
+            <div class="panel" style="flex: 1;">
+                <div class="panel-header">◢ CORE SYSTEM STATUS ◣</div>
+                <div class="panel-sep"></div>
+                <div class="panel-content" style="display:flex; flex-direction:column;">
+                    <div id="gauges"></div>
+                    <div style="font-size:10px; color:var(--neon-blue); margin-top:10px;">⟫ NETWORK TRACEROUTE</div>
+                    <div style="flex:1; background:#111; margin-top:5px; position:relative;">
+                        <canvas id="trace-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="panel" style="height: 100%;">
+                <div class="panel-header">◢ CYBER ATTACK SIMULATOR ◣</div>
+                <div class="panel-sep"></div>
+                <div class="panel-content" style="display:flex; flex-direction:column;">
+                    <div class="btn-grid" id="attack-grid"></div>
+                    <button class="glow-btn abort-btn" id="btn-abort" disabled>⚡ ABORT SIMULATION ⚡</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="panel" style="flex: 1.5;">
+                <div class="panel-header">◢ HOLOGRAM GLOBE ◣</div>
+                <div class="panel-sep"></div>
+                <div class="panel-content" style="background: #0d0d18; padding:0;">
+                    <div class="canvas-wrapper">
+                        <canvas id="globe-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel" style="flex: 1;">
+                <div class="panel-header">◢ THREAT LEVEL & REC ◣</div>
+                <div class="panel-sep"></div>
+                <div class="panel-content">
+                    <div style="height: 80px; width: 100%; border: 1px solid #333; margin-bottom: 10px; background: #0d0d18;">
+                        <canvas id="meter-canvas"></canvas>
+                    </div>
+                    <div id="recom-text">⟫ Awaiting initiation...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIG & STATE ---
+        const API = "http://localhost:5000/api/simulation";
+        const COLORS = {
+            blue: "#00e5ff", purple: "#ff00e5", orange: "#ff9900", green: "#00ff8c",
+            bg: "#1a1a2e"
+        };
+        const ATTACKS = {
+            "buffer_overflow": "Buffer Overflow",
+            "trapdoor_activation": "Trapdoor/Backdoor",
+            "privilege_escalation": "Privilege Escalation",
+            "kernel_memory_corruption": "Kernel Memory Corruption",
+            "cache_poisoning": "DNS Cache Poisoning",
+            "side_channel_timing": "Side-Channel Timing",
+            "supply_chain_poisoning": "Supply-Chain Poisoning"
+        };
+        
+        let state = {
+            running: false,
+            threat: 0,
+            history: new Array(60).fill(0),
+            abort: false
+        };
+
+        // --- AUDIO (Tone Generator) ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function beep(freq, type) {
+            if(audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            osc.frequency.value = freq;
+            osc.type = 'square';
+            
+            if(type === 'start') {
+                osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+            } else if(type === 'critical') {
+                osc.frequency.setValueAtTime(1500, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(500, audioCtx.currentTime + 0.4);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+            } else {
+                osc.start(); osc.stop(audioCtx.currentTime + 0.15);
+            }
+        }
+
+        // --- INITIALIZATION ---
+        window.onload = () => {
+            initUI();
+            initBackground();
+            initGlobe();
+            initTraceroute();
+            initMeter();
+            startDataStream();
+            requestAnimationFrame(animate);
+        };
+
+        function initUI() {
+            // Buttons
+            const grid = document.getElementById('attack-grid');
+            Object.keys(ATTACKS).forEach(k => {
+                const b = document.createElement('button');
+                b.className = 'glow-btn';
+                b.innerText = `⟫ ${ATTACKS[k]}`;
+                b.onclick = () => runSim(k);
+                grid.appendChild(b);
+            });
+            document.getElementById('btn-abort').onclick = () => { state.abort = true; beep(400, 'norm'); };
+
+            // Gauges
+            const gaugeContainer = document.getElementById('gauges');
+            ['CPU_LOAD', 'MEM_UTIL', 'NET_IN', 'NET_OUT'].forEach(m => {
+                const div = document.createElement('div');
+                div.className = 'gauge-row';
+                let col = (m.includes('NET')) ? COLORS.green : (m==='CPU_LOAD'?COLORS.orange:COLORS.purple);
+                div.innerHTML = `
+                    <div class="gauge-title"><span>⟫ ${m.replace('_',' ')}:</span><span id="val-${m}">0%</span></div>
+                    <div class="gauge-track"><div class="gauge-fill" id="bar-${m}" style="background:${col}"></div></div>
+                `;
+                gaugeContainer.appendChild(div);
+            });
+            
+            // Random gauge movement
+            setInterval(() => {
+                ['CPU_LOAD', 'MEM_UTIL', 'NET_IN', 'NET_OUT'].forEach(m => {
+                    let v = Math.random() * 30 + (state.running ? 40 : 10);
+                    if(m.includes('NET')) v = Math.random() * 10;
+                    document.getElementById(`bar-${m}`).style.width = v + "%";
+                    document.getElementById(`val-${m}`).innerText = v.toFixed(1) + (m.includes('NET') ? " MB/s" : "%");
+                });
+            }, 500);
+        }
+
+        // --- SIMULATION LOGIC ---
+        async function runSim(type) {
+            if(state.running) return;
+            state.running = true; state.abort = false; state.threat = 0;
+            state.history.fill(0);
+            
+            document.getElementById('log-container').innerHTML = '';
+            toggleBtns(true);
+            addLog("INFO", `[START] ⚡ Initiating ${type.toUpperCase()}...`);
+            beep(800, 'start');
+
+            try {
+                const res = await fetch(`${API}/${type}`);
+                const data = await res.json();
+                
+                for(let step of data.sequence) {
+                    if(state.abort) throw new Error("Aborted by user");
+                    await new Promise(r => setTimeout(r, 280));
+                    
+                    state.threat = step.threat_level;
+                    state.history.push(state.threat); state.history.shift();
+                    addLog(step.severity, step.message);
+                    if(step.severity === 'CRITICAL') beep(1500, 'critical');
+                }
+                
+                document.getElementById('recom-text').innerHTML = `
+                    <strong style="color:${COLORS.blue}">VERDICT:</strong><br>${data.verdict}<br><br>
+                    <strong style="color:${COLORS.blue}">PREVENTION:</strong><br>
+                    ${data.prevention.map(p => `• ${p}`).join('<br>')}
+                `;
+                beep(1000, 'start');
+
+            } catch(e) {
+                addLog("WARNING", e.message);
+            }
+            
+            state.running = false;
+            state.threat = 0; state.history.fill(0);
+            toggleBtns(false);
+        }
+
+        function addLog(sev, msg) {
+            const div = document.createElement('div');
+            const time = new Date().toISOString().substr(11, 8);
+            div.className = "log-line";
+            div.innerHTML = `<span class="log-time">[${time}]</span> <span class="c-${sev}">▶ ${msg}</span>`;
+            const c = document.getElementById('log-container');
+            c.appendChild(div);
+            c.scrollTop = c.scrollHeight;
+        }
+
+        function toggleBtns(disable) {
+            document.querySelectorAll('#attack-grid button').forEach(b => b.disabled = disable);
+            document.getElementById('btn-abort').disabled = !disable;
+        }
+
+        // --- VISUALIZATION (CANVAS) ---
+
+        // 1. Background Particles
+        let bgCtx;
+        function initBackground() {
+            const cvs = document.getElementById('bg-canvas');
+            bgCtx = cvs.getContext('2d');
+            resize(cvs);
+            window.addEventListener('resize', () => resize(cvs));
+        }
+
+        // 2. Hologram Globe (Golden Spiral 3D)
+        let globeCtx, points = [];
+        function initGlobe() {
+            const cvs = document.getElementById('globe-canvas');
+            globeCtx = cvs.getContext('2d');
+            resize(cvs);
+            
+            // Golden Spiral Algorithm
+            const n = 250;
+            for(let i=0; i<n; i++) {
+                const theta = Math.acos(1 - 2 * (i + 0.5) / n);
+                const phi = Math.PI * (1 + Math.sqrt(5)) * i;
+                points.push({
+                    x: Math.cos(phi) * Math.sin(theta),
+                    y: Math.sin(phi) * Math.sin(theta),
+                    z: Math.cos(theta)
+                });
+            }
+        }
+
+        function drawGlobe() {
+            const w = globeCtx.canvas.width;
+            const h = globeCtx.canvas.height;
+            const cx = w/2, cy = h/2;
+            const r = Math.min(w,h) * 0.35; // Radius
+            globeCtx.clearRect(0,0,w,h);
+            
+            // Rotation speed based on threat
+            const speed = 0.005 + (state.threat/5000);
+            const t = Date.now() * speed;
+
+            // Sort points by Z for depth
+            let p2d = points.map(p => {
+                // Rotate Y
+                let rx = p.x * Math.cos(t) - p.z * Math.sin(t);
+                let rz = p.x * Math.sin(t) + p.z * Math.cos(t);
+                return { x: rx, y: p.y, z: rz };
+            });
+
+            // Color selection
+            let col = COLORS.blue;
+            if(state.threat > 70) col = COLORS.purple;
+            else if(state.threat > 30) col = COLORS.orange;
+
+            globeCtx.fillStyle = col;
+            
+            p2d.forEach(p => {
+                // Simple perspective projection
+                const scale = r / (2 - p.z);
+                const x2d = cx + p.x * scale * 2; // *2 for spread
+                const y2d = cy + p.y * scale * 2;
+                
+                const size = Math.max(0.5, scale * 1.5);
+                const alpha = (p.z + 1) / 2 * 0.8 + 0.2;
+                
+                globeCtx.globalAlpha = alpha;
+                globeCtx.beginPath();
+                globeCtx.arc(x2d, y2d, size, 0, Math.PI*2);
+                globeCtx.fill();
+            });
+            
+            // Connections (Glitch effect)
+            globeCtx.strokeStyle = col;
+            globeCtx.globalAlpha = 0.15;
+            globeCtx.beginPath();
+            for(let i=0; i<30; i++) {
+                let p1 = p2d[Math.floor(Math.random()*p2d.length)];
+                let p2 = p2d[Math.floor(Math.random()*p2d.length)];
+                if(Math.abs(p1.z - p2.z) < 0.2) {
+                    const s1 = r/(2-p1.z)*2; const s2 = r/(2-p2.z)*2;
+                    globeCtx.moveTo(cx+p1.x*s1, cy+p1.y*s1);
+                    globeCtx.lineTo(cx+p2.x*s2, cy+p2.y*s2);
+                }
+            }
+            globeCtx.stroke();
+            globeCtx.globalAlpha = 1.0;
+        }
+
+        // 3. Traceroute
+        let traceCtx, packets = [];
+        function initTraceroute() {
+            const cvs = document.getElementById('trace-canvas');
+            traceCtx = cvs.getContext('2d');
+            resize(cvs);
+        }
+
+        function drawTrace() {
+            const w = traceCtx.canvas.width;
+            const h = traceCtx.canvas.height;
+            const y = h/2;
+            const steps = 5;
+            const seg = w / steps;
+
+            traceCtx.clearRect(0,0,w,h);
+            
+            // Draw Line
+            traceCtx.strokeStyle = "#333355";
+            traceCtx.lineWidth = 2;
+            traceCtx.beginPath();
+            traceCtx.moveTo(0, y); traceCtx.lineTo(w, y);
+            traceCtx.stroke();
+
+            // Draw Nodes
+            for(let i=0; i<=steps; i++) {
+                let x = i*seg;
+                traceCtx.fillStyle = (state.running && i > 0 && i < steps) ? COLORS.orange : COLORS.blue;
+                traceCtx.beginPath(); traceCtx.arc(x, y, 4, 0, Math.PI*2); traceCtx.fill();
+                
+                traceCtx.fillStyle = "#888";
+                traceCtx.font = "10px Consolas";
+                let txt = i===0 ? "SRC" : (i===steps ? "DST" : "H"+i);
+                traceCtx.fillText(txt, x-8, y+15);
+            }
+
+            // Packets
+            if(Math.random() < 0.05) packets.push({x:0, life:1});
+            
+            traceCtx.fillStyle = state.threat > 50 ? COLORS.purple : COLORS.green;
+            for(let i=packets.length-1; i>=0; i--) {
+                let p = packets[i];
+                p.x += 2 + (state.threat/20);
+                traceCtx.fillRect(p.x, y-3, 6, 6);
+                if(p.x > w) packets.splice(i, 1);
+            }
+        }
+
+        // 4. Meter Sparkline
+        let meterCtx;
+        function initMeter() {
+            const cvs = document.getElementById('meter-canvas');
+            meterCtx = cvs.getContext('2d');
+            resize(cvs);
+        }
+
+        function drawMeter() {
+            const w = meterCtx.canvas.width;
+            const h = meterCtx.canvas.height;
+            meterCtx.clearRect(0,0,w,h);
+
+            // Grid
+            meterCtx.strokeStyle = "#222";
+            meterCtx.beginPath(); meterCtx.moveTo(0, h/2); meterCtx.lineTo(w, h/2); meterCtx.stroke();
+
+            // Line
+            meterCtx.strokeStyle = COLORS.blue;
+            meterCtx.lineWidth = 2;
+            meterCtx.beginPath();
+            
+            const step = w / 60;
+            state.history.forEach((val, i) => {
+                let y = h - (val / 100 * h);
+                if(i===0) meterCtx.moveTo(0, y);
+                else meterCtx.lineTo(i*step, y);
+            });
+            meterCtx.stroke();
+
+            // Fill
+            meterCtx.lineTo(w, h); meterCtx.lineTo(0, h);
+            meterCtx.fillStyle = "rgba(0, 229, 255, 0.1)";
+            meterCtx.fill();
+
+            // Text
+            meterCtx.fillStyle = "#fff";
+            meterCtx.font = "bold 14px Consolas";
+            meterCtx.fillText(`${state.threat}%`, w-40, 20);
+        }
+
+        // --- UTILS ---
+        function resize(cvs) {
+            cvs.width = cvs.parentElement.clientWidth;
+            cvs.height = cvs.parentElement.clientHeight;
+        }
+
+        function startDataStream() {
+            const el = document.getElementById('data-stream');
+            setInterval(() => {
+                const ip = `109.87.122.${Math.floor(Math.random()*255)}`;
+                const load = Math.floor(Math.random()*100);
+                el.innerHTML = `TARGET: ${ip}<br>LOAD: ${load}%<br>SYNC: OK`;
+            }, 300);
+        }
+
+        // --- MAIN LOOP ---
+        function animate() {
+            if(globeCtx) drawGlobe();
+            if(traceCtx) drawTrace();
+            if(meterCtx) drawMeter();
+            
+            // Background particles
+            const w = bgCtx.canvas.width; const h = bgCtx.canvas.height;
+            bgCtx.clearRect(0,0,w,h);
+            bgCtx.strokeStyle = "rgba(20,20,50, 0.5)";
+            bgCtx.lineWidth = 1;
+            // Draw simple grid
+            bgCtx.beginPath();
+            for(let x=0; x<w; x+=100) { bgCtx.moveTo(x,0); bgCtx.lineTo(x,h); }
+            for(let y=0; y<h; y+=100) { bgCtx.moveTo(0,y); bgCtx.lineTo(w,y); }
+            bgCtx.stroke();
+
+            requestAnimationFrame(animate);
+        }
+
+    </script>
+</body>
+</html>
