@@ -1,0 +1,219 @@
+## 📝 Basic Syntax & Variables
+Variables are created when you assign a value to them. Python is dynamically typed, so you don't need to declare the type.
+
+Variable Assignment: variable_name = value
+
+Comments: Use the # symbol for single-line comments.
+
+Printing to Console: Use the print() function. F-strings are the modern way to format strings.
+
+Python
+
+# Variable assignment
+name = "Alice"
+age = 30
+pi_value = 3.14159
+
+# Printing output using an f-string
+print(f"Hello, my name is {name} and I am {age} years old.")
+
+# This is a comment and will not be executed.
+## 🔢 Data Types & Structures
+These are the fundamental building blocks for storing information.
+
+Basic Types
+Integer (int): Whole numbers. x = 10
+
+Float (float): Numbers with a decimal point. y = 2.5
+
+String (str): Text, enclosed in single ' ' or double " " quotes. message = "Hello Python"
+
+Boolean (bool): Represents True or False. Note the capitalization. is_active = True
+
+Data Structures
+List []: An ordered and mutable (changeable) collection.
+
+Python
+
+my_list = [1, "apple", 3.5, "apple"]
+first_item = my_list[0]  # Access by index (starts at 0)
+my_list.append("new item") # Add to the end
+my_list.remove("apple") # Removes the first occurrence
+print(my_list) # Output: [1, 3.5, 'apple', 'new item']
+Tuple (): An ordered and immutable (unchangeable) collection.
+
+Python
+
+my_tuple = (1, "banana", 4.0)
+first_item = my_tuple[0]
+# my_tuple[0] = 5 # This would cause a TypeError
+Dictionary {}: A collection of key-value pairs. It's unordered (in older Python versions) and mutable.
+
+Python
+
+my_dict = {"name": "Bob", "age": 25, "city": "New York"}
+user_name = my_dict["name"] # Access by key
+my_dict["email"] = "bob@email.com" # Add a new key-value pair
+print(my_dict) # Output: {'name': 'Bob', 'age': 25, 'city': 'New York', 'email': 'bob@email.com'}
+Set {}: An unordered collection of unique elements.
+
+Python
+
+my_set = {1, 2, 3, 3, 4, 4, 4}
+print(my_set) # Output: {1, 2, 3, 4}
+my_set.add(5)
+## ➡️ Control Flow
+This is how you control the order in which code is executed. Indentation is crucial in Python; it defines code blocks.
+
+Conditional Statements (if/elif/else)
+
+Python
+
+score = 85
+if score >= 90:
+    print("Grade A")
+elif score >= 80:
+    print("Grade B") # This will be printed
+else:
+    print("Grade C or below")
+For Loops (for iterating over a sequence)
+
+Python
+
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)
+
+# Using range() to loop a specific number of times
+for i in range(5): # Loops from 0 to 4
+    print(i)
+While Loops (loops as long as a condition is true)
+
+Python
+
+count = 0
+while count < 5:
+    print(f"Count is {count}")
+    count += 1 # Important: change the condition to avoid an infinite loop!
+Loop Control Statements
+
+break: Exits the loop entirely.
+
+continue: Skips the current iteration and proceeds to the next.
+
+## ⚙️ Functions
+Functions are reusable blocks of code. They help organize your program.
+
+Defining a Function: Use the def keyword.
+
+Returning a Value: Use the return keyword.
+
+Python
+
+# A simple function with parameters and a return value
+def add_numbers(num1, num2):
+    """This is a docstring. It explains the function."""
+    result = num1 + num2
+    return result
+
+# Calling the function
+sum_result = add_numbers(5, 10)
+print(f"The sum is: {sum_result}") # Output: The sum is: 15
+
+# Function with a default parameter value
+def greet(name="World"):
+    print(f"Hello, {name}!")
+
+greet("Sam") # Output: Hello, Sam!
+greet()      # Output: Hello, World!
+## ⚡ List Comprehensions
+A concise, "Pythonic" way to create lists.
+
+Syntax: [expression for item in iterable if condition]
+
+Python
+
+# Traditional way
+squares = []
+for i in range(10):
+    if i % 2 == 0: # Only for even numbers
+        squares.append(i * i)
+
+# List comprehension way (more efficient and readable)
+squares_comp = [i * i for i in range(10) if i % 2 == 0]
+
+print(squares)       # Output: [0, 4, 16, 36, 64]
+print(squares_comp)  # Output: [0, 4, 16, 36, 64]
+## ⚠️ Exception Handling
+How to gracefully handle errors that might crash your program.
+
+Python
+
+try:
+    # Code that might raise an error
+    result = 10 / 0
+except ZeroDivisionError:
+    # Code to run if that specific error occurs
+    print("Error: You can't divide by zero!")
+finally:
+    # This code will run no matter what (optional)
+    print("Execution finished.")
+## 📂 File I/O
+Reading from and writing to files. The with statement is highly recommended as it automatically closes the file.
+
+Python
+
+# Writing to a file ('w' mode overwrites the file)
+with open("example.txt", "w") as file:
+    file.write("Hello, file world!\n")
+    file.write("This is a second line.")
+
+# Reading from a file ('r' mode)
+with open("example.txt", "r") as file:
+    content = file.read()
+    print(content)
+## 🏛️ Classes & Objects (OOP)
+A way to structure your code by modeling real-world things.
+
+Class: A blueprint for creating objects.
+
+Object: An instance of a class.
+
+__init__: A special method (constructor) that runs when an object is created.
+
+self: Refers to the instance of the class itself.
+
+Python
+
+class Dog:
+    # The constructor method
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    # A method
+    def bark(self):
+        return f"{self.name} says Woof!"
+
+# Create an object (an instance of the Dog class)
+my_dog = Dog("Buddy", 4)
+
+# Access attributes and call methods
+print(f"{my_dog.name} is {my_dog.age} years old.")
+print(my_dog.bark())
+## 📦 Importing Modules
+Use code from Python's standard library or third-party packages.
+
+Python
+
+# Import the entire module
+import math
+print(math.sqrt(16)) # Output: 4.0
+
+# Import a specific function from a module
+from random import randint
+print(randint(1, 10)) # Prints a random integer between 1 and 10
+
+# Import a module with an alias (a shorter name)
+import numpy as np
+my_array = np.array([1, 2, 3])
