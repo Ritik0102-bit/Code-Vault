@@ -11,6 +11,10 @@ npm create vite
 - Then select react and then select JavaScript
 - Now we will work in the src folder > App.jsx 
 
-5. App.jsx
+5. To run our react app we will use the command
+- npm run dev
+
+6. App.jsx
 - rafce
 - It will create a functional component for us.
+
