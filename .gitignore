@@ -1,6 +1,9 @@
 # Ignore the git & github folder
 'Git & GitHub/'
 
+# Ignore the BIN folder
+'BIN/'
+
 # --- Java ---
 *.class
 *.jar
