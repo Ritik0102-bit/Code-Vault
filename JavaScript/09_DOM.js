@@ -57,10 +57,21 @@
 
 // node.style : returns the inline style of the element as a CSSStyleDeclaration object. You can use this object to get or set individual style properties.
 
-// node.style.property : returns the value of the property
-//node.style.property = value : sets the value of the property
+node.style.property // returns the value of the property
+node.style.property = value // sets the value of the property
 
 
+// Insert Element :-
+
+let el = document.createElement("div")
+node.append( el ) //adds at the end of node (inside)
+node.prepend( el ) //adds at the start of node (inside)
+node.before( el ) //adds before the node (outside)
+node.after( el ) //adds after the node (outside)
+
+// Delete Element
+
+node.remove( ) //removes the node
 
 
 // Methods :-
