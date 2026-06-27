@@ -1,0 +1,52 @@
+Introduction to Queues
+1. Core Definition
+Linear Data Structure: A Queue is sequential; elements are arranged one after another (like an array or a linked list).
+
+The Principle: It operates on FIFO (First In, First Out) or FCFS (First Come, First Serve).
+Meaning: The element that is inserted first is the first one to be removed. (Think of a line at a ticket counter).
+
+To manage the data, a Queue maintains two specific pointers/ends:
+
+Front: This tracks the first element. This is the end where items are removed (Dequeued).
+Back (or Rear): This tracks the end of the queue. This is where new items are added (Enqueued).
+
+
+Types of Queues
+Queues are classified based on how they handle data insertion and removal. The lecture identifies three main types:
+
+1. Simple Queue (Linear Queue)
+Structure: This is the standard queue we discussed previously. It is a linear data structure.
+Logic: Follows strict FIFO (First In, First Out).
+
+Pointers:
+
+Front: Points to the beginning (where elements are removed).
+Rear (Back): Points to the end (where elements are added).
+
+Limitation: In a fixed-size linear queue (like an array), once the rear reaches the end, you cannot insert more elements, even if you have deleted elements from the front and created empty space. This is often called "false overflow."
+
+2. Priority Queue
+Definition: A special type of queue where elements are arranged based on priority, not just arrival time.
+
+Logic:
+Each element has a priority value associated with it.
+The element with the highest priority is dequeued first.
+If elements have the same priority, they follow standard FIFO.
+Real-world analogy: A VIP line at an airport (Priority) vs. the regular check-in line (Simple).
+
+3. Circular Queue
+Structure: As shown in the handwritten diagram, the last position is connected back to the first position to make a circle.
+Purpose: It solves the limitation of the Simple Queue. It utilizes the empty spaces created by the dequeue operation.
+Logic:
+If the rear reaches the end of the buffer and there is space at the beginning (because of deletions), the rear wraps around to the start.
+
+Also known as a Ring Buffer.
+
+
+Types of Operations on Queues:
+
+1. Enqueue:- This operation will help us to add a new element in the queue.
+2. Dequeue:- This operation will help us to remove an element from the queue.
+3. isFull:- Checks if the queue is full (useful for array-based queues).
+4. isEmpty:- Checks if the queue is empty.
+5. Front:- Gives us the element which came first (peek).
