@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ritik's Code Portfolio | Live GitHub Viewer</title>
+  <!-- Prism CSS for Syntax Highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet" />
+  <!-- Devicon & FontAwesome Icons for Cool Aesthetics -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo-area">
+      <!-- Profile Picture Avatar beside the logo -->
+      <div class="avatar-container">
+        <img id="userAvatar" src="https://github.com/Ritik0102-bit.png" alt="Ritik Profile" class="profile-avatar" title="Ritik's GitHub Profile">
+        <div class="avatar-glow"></div>
+      </div>
+      <div class="logo-text">
+        <h1>Ritik's Code Portfolio</h1>
+        <span>LIVE GITHUB EXPLORER</span>
+      </div>
+    </div>
+
+    <div class="nav-controls">
+      <div class="search-wrapper" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="search-container">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search files or code...">
+        </div>
+        <span class="search-mode-badge" id="searchModeBadge" title="Press Enter to search deep inside code content!">File Search</span>
+      </div>
+
+      <div class="repo-badge" id="repoBadge" title="Connected to GitHub API">
+        <span class="status-dot"></span>
+        <i class="fa-brands fa-github" style="font-size: 1rem; color: #fff;"></i>
+        <span>Repo: <strong id="repoNameDisplay">Ritik0102-bit/CODE</strong></span>
+      </div>
+
+      <button class="btn-settings" id="settingsBtn" title="Configure GitHub Repo or Token"><i class="fa-solid fa-gear"></i></button>
+    </div>
+  </nav>
+
+  <!-- Main Split Layout -->
+  <main class="app-main">
+    <!-- Left Sidebar: File Explorer -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <span><i class="fa-solid fa-folder-tree" style="margin-right: 6px; color: var(--accent-cyan);"></i> EXPLORER</span>
+        <span id="fileCountDisplay">Loading...</span>
+      </div>
+      <div class="file-tree" id="fileTree">
+        <!-- Tree items loaded dynamically via JS -->
+      </div>
+    </aside>
+
+    <!-- Right Viewer Area -->
+    <section class="viewer">
+      <!-- Viewer Header -->
+      <header class="viewer-header">
+        <div class="tabs-container" id="tabsContainer">
+          <!-- Dynamically added open file tabs -->
+        </div>
+        <div class="viewer-actions" id="viewerActions" style="display: none;">
+          <button class="btn-action" id="copyBtn"><i class="fa-regular fa-copy"></i> Copy Code</button>
+          <a class="btn-action" id="githubLinkBtn" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> View on GitHub</a>
+          <a class="btn-action primary" id="rawLinkBtn" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-download"></i> Raw File</a>
+        </div>
+      </header>
+
+      <!-- Code Container -->
+      <div class="code-container" id="codeContainer">
+        <!-- Empty / Welcome State -->
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon"><i class="fa-solid fa-laptop-code"></i></div>
+          <h2>Explore My Multi-Language Codebase</h2>
+          <p>Select any folder or file from the left sidebar to view the live source code directly fetched from my GitHub repository. Type in the search box above and press <b>Enter</b> to search deep inside code content across all files!</p>
+          
+          <div class="quick-cards">
+            <div class="quick-card" onclick="quickLoadFile('C++/Pascal_Triangle_00.cpp')">
+              <h4><i class="devicon-cplusplus-plain colored"></i> C++ Pascal Triangle</h4>
+              <p>Algorithm & Pattern implementation</p>
+            </div>
+            <div class="quick-card" onclick="quickLoadFile('Python/Python_Basics.py')">
+              <h4><i class="devicon-python-plain colored"></i> Python Basics</h4>
+              <p>Core syntax & data structures</p>
+            </div>
+            <div class="quick-card" onclick="quickLoadFile('Java/HashMap_00.java')">
+              <h4><i class="devicon-java-plain colored"></i> Java HashMap</h4>
+              <p>Collection framework dive</p>
+            </div>
+            <div class="quick-card" onclick="quickLoadFile('README.md')">
+              <h4><i class="devicon-markdown-original colored" style="color: #38bdf8;"></i> README.md</h4>
+              <p>Repository documentation</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loader -->
+        <div class="loader-container" id="loader" style="display: none;">
+          <div class="spinner"></div>
+          <p id="loaderText" style="color: var(--text-muted); font-size: 0.9rem;">Fetching live file from GitHub...</p>
+        </div>
+
+        <!-- Code Output -->
+        <pre id="codeDisplay" class="line-numbers" style="display: none;"><code id="codeElement" class="language-clike"></code></pre>
+      </div>
+    </section>
+  </main>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal">
+      <h3><i class="fa-solid fa-sliders"></i> Configuration</h3>
+      <p>Connect to any public GitHub repository or add an optional GitHub Personal Access Token if you encounter API rate limits.</p>
+      
+      <div class="form-group">
+        <label for="usernameInput">GitHub Username</label>
+        <input type="text" id="usernameInput" class="form-input" value="Ritik0102-bit">
+      </div>
+
+      <div class="form-group">
+        <label for="reponameInput">Repository Name</label>
+        <input type="text" id="reponameInput" class="form-input" value="CODE">
+      </div>
+
+      <div class="form-group">
+        <label for="tokenInput">GitHub Token (Optional - for rate limits)</label>
+        <input type="password" id="tokenInput" class="form-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" id="closeModalBtn">Cancel</button>
+        <button class="btn-save" id="saveConfigBtn">Save & Reload</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prism JS & Autoloader -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  <!-- Custom Application Script -->
+  <script src="script.js"></script>
+</body>
+</html>
