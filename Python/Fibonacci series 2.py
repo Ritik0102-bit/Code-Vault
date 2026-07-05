@@ -1,0 +1,13 @@
+n=int(input("n:"))
+x=0
+y=1
+print(x)
+print(y)
+i=3
+sum=0
+while(i<=n):
+    sum=x+y
+    print(sum)
+    x=y
+    y=sum
+    i+=1
