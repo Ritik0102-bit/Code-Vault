@@ -1,0 +1,9 @@
+a=3
+b=2
+if(b!=0):
+    if(a>b):
+        print("{:2f}".format(a/b))
+    elif(a<b):
+        print("{:2f}".format(a*b))
+else:
+    print("undefined")
